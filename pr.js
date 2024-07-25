@@ -1,24 +1,32 @@
 var level = 1;
 var userList = [];
 var winlist = [];
+var bl = 1;
 
 var colors = ["green", "red", "yellow", "blue"];
 
 $(document).ready(function () {
+	
 	$("html").on("keydown", startGame);
 
 	$(".btn").on("click", clicked);
 });
 
 function startGame() {
-	$("h1").text("Level " + level);
+	if (bl === 1)
+	{
+		$("h1").text("Level " + level);
 
-	var rand = Math.floor(Math.random() * 4) + 1;
-	winlist.push(rand);
-	demonstrateOrder(winlist);
+		var rand = Math.floor(Math.random() * 4) + 1;
+		winlist.push(rand);
+		demonstrateOrder(winlist);
 
-	userList = [];
-	level++;
+		userList = [];
+		bl = 0;
+	}
+	
+
+
 }
 
 function demonstrateOrder(el) {
@@ -38,7 +46,7 @@ function demonstrateOrder(el) {
 					clicked2(".blue");
 					makesound("blue");
 				}
-			}, 1000 * i); // Delay each interval start
+			}, 500 * i); // Delay each interval start
 		})(index);
 	}
 }
@@ -85,9 +93,12 @@ function checkAnswer() {
 
 	if (userList[currentLevel] !== winlist[currentLevel]) {
 		makesound("wrong");
+		bl = 1;
 		resetGame();
 	} else if (userList.length === winlist.length) {
 		setTimeout(startGame, 1000); // Move to the next level
+		level++;
+		bl = 1;
 	}
 }
 
