@@ -7,10 +7,15 @@ var colors = ["green", "red", "yellow", "blue"];
 
 $(document).ready(function () {
 	
-	$("html").on("keydown", startGame);
+	$(".startbutton").on("click", startGame);
 
+	$(".startbutton").addClass("pressed");
+	setTimeout(function () {
+		$(".startbutton").removeClass("pressed");
+	}, 200);
 	$(".btn").on("click", clicked);
 });
+	
 
 function startGame() {
 	if (bl === 1)
